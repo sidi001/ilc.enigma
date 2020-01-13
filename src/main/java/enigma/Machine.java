@@ -1,5 +1,7 @@
 package enigma;
 
+
+// Classe qui représente une machine à énigmes complète.
 public class Machine {
 
 	private Rotor leftRotor;
@@ -53,28 +55,20 @@ public class Machine {
 
 	}
 
+	// Aide pour nous permettre d'avancer mes rotors et
+	//le double pas est vérificateur ici.
 	void advanceRotors() {
-		boolean advanceLeft = false;
-		boolean advanceMiddle = false;
-		boolean advanceRight = true;
-		if (leftRotor.atNotch()) {
-		}
+
 		if (middleRotor.atNotch()) {
-			advanceMiddle = true;
-			advanceLeft = true;
-		}
-		if (rightRotor.atNotch()) {
-			advanceMiddle = true;
-			advanceRight = true;
-		}
-		if (advanceLeft) {
 			leftRotor.advance();
-		}
-		if (advanceRight) {
-			rightRotor.advance();
-		}
-		if (advanceMiddle) {
-			middleRotor.advance();
+			if (rightRotor.atNotch()) {
+				rightRotor.advance();
+				middleRotor.advance();
+			}
+		}else{
+			if (rightRotor.atNotch()) {
+				rightRotor.advance();
+			}
 		}
 	}
 }

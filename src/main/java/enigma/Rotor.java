@@ -15,7 +15,8 @@ public class Rotor {
     public void setPosition(int posn) {
         position = posn;
     }
-    
+
+
 	public static Rotor rotorFactory(String str, String notches){
 		char[] s = str.trim().replace(" ", "").toCharArray();
 		int[] cipher = new int[26];
@@ -44,18 +45,26 @@ public class Rotor {
 		createBCipher();
 	}
 
+	//on remarque l'utilisation courant de 26...lorsqu'on change le 26 et rexecuter le teste.
+    // On remarque que le code ne fonctionne plus. cela peut être dû au fait que toute la logique du code est basé sur la taille 26
+    // * Renvoie la conversion de P (un entier compris entre 0...26 - 1)
     public int convertForward(int p) {
         return ((cipher[((p+position)%26+26)%26]-position)%26+26)%26;
     }
 
+    // * * Renvoie la conversion de E (un entier compris entre 0...26 - 1)
     public int convertBackward(int e) {
         return ((bcipher[((e+position)%26+26)%26]-position)%26+26)%26;
     }
-    
+
+    //recupère la position actuelle du rotor pour l'incrementer de 1
+    //on s'assure toujours que la valeur soit dans [0,25]
+    //il avance d'une position, si possible. sinon, ne fait rien. * /
     public void advance() {
         position = (position+1) % 26;
     }
-    
+
+    //atNotch() Renvoie vrai si je suis positionné pour laisser le rotor à ma gauche
     protected boolean atNotch() {
         return (position == notch1 || position == notch2);
     }
