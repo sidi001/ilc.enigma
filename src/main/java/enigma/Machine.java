@@ -59,16 +59,22 @@ public class Machine {
 	//le double pas est vérificateur ici.
 	void advanceRotors() {
 
+		boolean advanceMiddle = false;
+
 		if (middleRotor.atNotch()) {
 			leftRotor.advance();
-			if (rightRotor.atNotch()) {
-				rightRotor.advance();
-				middleRotor.advance();
-			}
-		}else{
-			if (rightRotor.atNotch()) {
-				rightRotor.advance();
-			}
+			advanceMiddle= true;
 		}
+
+		if (rightRotor.atNotch()) {
+			advanceMiddle= true;
+
+		}
+		rightRotor.advance();
+		if(	advanceMiddle){
+			middleRotor.advance();
+		}
+
+
 	}
 }
